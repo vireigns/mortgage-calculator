@@ -1,0 +1,93 @@
+
+.box {
+  max-width: 400px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+#heading {
+  background-color: #069A8E;
+  text-align: center;
+}
+
+nav {
+  padding-left: 88px;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+	text-align: center;
+	width: 100%;
+	height: 60px;
+  background: white;
+}
+
+.footer-container {
+  padding-bottom: 60px;
+  margin-top: 40px;
+}
+
+.copyright {
+  padding: 5px 100px;
+}
+
+.social {
+  padding: 5px 100px;
+}
+
+button:hover {
+  background-color: #57CC99;
+  color: white;
+}
+
+button {
+  padding: 5px 100px;
+}
+
+a:active {
+  color: white
+}
+
+.setting {
+  padding: 5px 100px
+}
+
+p {
+  padding: 0px 100px
+}
+
+.buttons {
+  padding-left: 100px;
+  display: flex;
+  gap: 10px;
+}
+
+.add {
+  margin: 10px 100px;
+}
+
+.save {
+  margin: 10px 100px;
+}
+
+.calculate {
+  margin: 10px 100px;
+}
+
+.bank-name {
+  padding-top: 10px;
+}
+
+.mortgage {
+  padding: 10px 100px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px 100px;
+}

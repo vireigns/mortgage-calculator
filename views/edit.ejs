@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs") %>
+
+<h3>Edit bank</h3>
+
+<p class="fw-bold">Bank name: <%= name %></p>
+<form class="" action="/edit/<%= _id %>" method="post">
+<div class="edit" name="editBox">
+  <div class="setting">
+    <span>Interest rate: <input type="number" name="newinterestRate" required='required' value=<%= interestRate %>> % </span>
+</div>
+  <div class="setting">
+    <span> Maximum loan: $<input type="number" name="newmaximumLoan" required='required' value =<%= maximumLoan %>></span>
+  </div>
+  <div class="setting">
+    <span>Minimum down payment: $<input type="number" name="newminimumDownPayment" required='required' value =<%= minimumDownPayment %>></span>
+  </div>
+  <div class="setting">
+    <span>Loan Term: <input type="number" name="newloanTerm" required='required' value =<%= loanTerm %>> years</span>
+  </div>
+  <button type="submit" class=" save btn btn-dark btn-sm" name="button">Save</button>
+</div>
+</form>
+<script src="app.js"> </script>
+
+<%- include("partials/footer.ejs") %>

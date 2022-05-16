@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs") %>
+
+<div class='new-bank'>
+  <h3>Create a new bank</h3>
+<form class="" action="/" method="post">
+  <div class="setting">
+    <span> Bank name: <input type="text" name="bankName" value="" placeholder="Bank name" required='required'> </span>
+  </div>
+  <div class="setting">
+    <span>Interest rate: <input type="number" name="interestRate" value="" placeholder="5" required='required'> % </span>
+  </div>
+  <div class="setting">
+    <span> Maximum loan: <input type="number" name="maximumLoan" value="" placeholder="$320,000" required='required' ></span>
+  </div>
+  <div class="setting">
+    <span>Minimum down payment: <input type="number" name="minimumDownPayment" value="" placeholder="$80,000" required='required' ></span>
+  </div>
+  <div class="setting">
+    <span>Loan Term: <input type="number" name="loanTerm" value="" placeholder="30" required='required'> years</span>
+  </div>
+  </div>
+  <button type="submit" class="add btn btn-dark btn-sm" name="button">Add bank</button>
+</form>
+
+
+<div class="banks">
+  <h3> Your banks </h3>
+<%banks.forEach((bank) => { %>
+<p class="bank-name fw-bold"><%= bank.name %></p>
+<p>Interest rate: <%= bank.interestRate.toLocaleString("en-US") %> % </p>
+<p>Maximum loan: $<%= bank.maximumLoan.toLocaleString("en-US") %></p>
+<p>Minimum down payment: $<%= bank.minimumDownPayment.toLocaleString("en-US") %></p>
+<p>Loan Term: <%= bank.loanTerm.toLocaleString("en-US") %> years</p>
+<div class='buttons'>
+<a href="/edit/<%= bank._id %>"><button type="button" class="btn btn-dark btn-sm" name="editButton">Edit</button></a>
+<form class="" action="/remove" method="post">
+<button type="submit" value="<%= bank._id %>" class="btn btn-dark btn-sm" name="removeButton"> Remove</button>
+</form>
+</div>
+<%})%>
+</div>
+
+
+
+<script src="app.js"> </script>
+
+<%- include("partials/footer.ejs") %>

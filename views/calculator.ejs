@@ -1,0 +1,28 @@
+<%- include("partials/header.ejs") %>
+<div >
+<h3>Calculate Mortgage</h3>
+</div>
+
+
+
+<form name="myForm" action="/calculator" onsubmit="" method="post">
+<div class="setting">
+    <label for="bank-names">Choose bank:</label>
+    <select name="bankNames" id="bank-names" onchange="this.form.submit()">
+      <%banks.forEach((bank) => { %>
+      <option name="selectedOption" value="<%= bank._id %>" <%= bank._id.equals(bankId) ? 'selected' : '' %> class="fw-bold"><%= bank.name %></option>
+    <%})%>
+    </select>
+</div>
+<div class="setting">
+  <span>Initial loan: <input type="number" name="initialLoan" max= "<%= maxLoan%>" id="initialLoan" placeholder="$<%= maxLoan.toLocaleString("en-US") %>" required="required" ></span>
+</div>
+<div class="setting">
+  <span> Down payment: <input type="number" name="downPayment" min= "<%= minimumDownPayment %>" id="downPayment" placeholder="$<%= minimumDownPayment.toLocaleString("en-US") %>" required="required"></span>
+</div>
+  <button type="submit" value="" class="calculate btn btn-dark btn-sm" name="calculateButton">Calculate</button>
+  <p class="mortgage fw-bold">Total monthly payment: $<%=mortgage%></p>
+</form>
+</div>
+
+<%- include("partials/footer.ejs") %>
