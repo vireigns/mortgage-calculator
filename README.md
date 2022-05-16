@@ -12,29 +12,10 @@ Make sure you have [Node.js](https://nodejs.org/), [Node Package Manager (NPM)](
 
 Run the following commands to set up a Node development environment:
 
-Use the npm init command to create a package.json file:
+Use the npm install to install node modules:
 
 ```sh
-npm init
-```
-Run the following command to install Express:
-
-```sh
-npm install express
-```
-Run these commands to install EJS and Bootstrap:
-
-```sh
-npm install ejs
-```
-
-```sh
-npm install bootstrap@5.2.0-beta1
-```
-Next install Mongoose from the command line to model the app data:
-
-```sh
-npm install mongoose
+npm install
 ```
 
 Start the server by calling node with the script in your command prompt:
