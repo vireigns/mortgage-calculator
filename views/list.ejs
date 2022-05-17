@@ -7,16 +7,16 @@
     <span> Bank name: <input type="text" name="bankName" value="" placeholder="Bank name" required='required'> </span>
   </div>
   <div class="setting">
-    <span>Interest rate: <input type="number" name="interestRate" value="" placeholder="5" required='required'> % </span>
+    <span>Interest rate: <input class="add-comma" type="text" name="interestRate" value="" placeholder="5" required='required'> % </span>
   </div>
   <div class="setting">
-    <span> Maximum loan: <input type="number" name="maximumLoan" value="" placeholder="$320,000" required='required' ></span>
+    <span> Maximum loan: <input class="add-comma" type="text" name="maximumLoan" value="" placeholder="$320,000" required='required' ></span>
   </div>
   <div class="setting">
-    <span>Minimum down payment: <input type="number" name="minimumDownPayment" value="" placeholder="$80,000" required='required' ></span>
+    <span>Minimum down payment: <input class="add-comma" type="text" name="minimumDownPayment" value="" placeholder="$80,000" required='required' ></span>
   </div>
   <div class="setting">
-    <span>Loan Term: <input type="number" name="loanTerm" value="" placeholder="30" required='required'> years</span>
+    <span>Loan Term: <input class="add-comma" type="text" name="loanTerm" value="" placeholder="30" required='required'> years</span>
   </div>
   </div>
   <button type="submit" class="add btn btn-dark btn-sm" name="button">Add bank</button>
@@ -27,10 +27,10 @@
   <h3> Your banks </h3>
 <%banks.forEach((bank) => { %>
 <p class="bank-name fw-bold"><%= bank.name %></p>
-<p>Interest rate: <%= bank.interestRate.toLocaleString("en-US") %> % </p>
-<p>Maximum loan: $<%= bank.maximumLoan.toLocaleString("en-US") %></p>
-<p>Minimum down payment: $<%= bank.minimumDownPayment.toLocaleString("en-US") %></p>
-<p>Loan Term: <%= bank.loanTerm.toLocaleString("en-US") %> years</p>
+<p>Interest rate: <%= bank.interestRate %> % </p>
+<p>Maximum loan: $<%= bank.maximumLoan %></p>
+<p>Minimum down payment: $<%= bank.minimumDownPayment %></p>
+<p>Loan Term: <%= bank.loanTerm %> years</p>
 <div class='buttons'>
 <a href="/edit/<%= bank._id %>"><button type="button" class="btn btn-dark btn-sm" name="editButton">Edit</button></a>
 <form class="" action="/remove" method="post">
@@ -40,8 +40,33 @@
 <%})%>
 </div>
 
+<script>
+  function updateTextView(_obj){
+    var num = getNumber(_obj.val());
+    if(num==0){
+      _obj.val('');
+    }else{
+      _obj.val(num.toLocaleString());
+    }
+  }
+  function getNumber(_str){
+    var arr = _str.split('');
+    var out = new Array();
+    for(var cnt=0;cnt<arr.length;cnt++){
+      if(isNaN(arr[cnt])==false){
+        out.push(arr[cnt]);
+      }
+    }
+    return Number(out.join(''));
+  }
+  $(document).ready(function(){
+    $('.add-comma').on('keyup',function(){
+      updateTextView($(this));
+    });
+  });
+</script>
 
 
-<script src="app.js"> </script>
+
 
 <%- include("partials/footer.ejs") %>

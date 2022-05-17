@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const jquery = require("jquery");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
 
@@ -15,20 +16,20 @@ mongoose.connect('mongodb://localhost:27017/mortgagecalculatorDB');
 
 const banksSchema = {
   name: String,
-  interestRate: Number,
-  maximumLoan: Number,
-  minimumDownPayment: Number,
-  loanTerm: Number
+  interestRate: String,
+  maximumLoan: String,
+  minimumDownPayment: String,
+  loanTerm: String
  };
 
 const Bank = mongoose.model('Bank', banksSchema);
 
 const bank1 = new Bank ({
   name: 'Default Bank',
-  interestRate: 10,
-  maximumLoan: 300000,
-  minimumDownPayment: 20000,
-  loanTerm: 15
+  interestRate: "10",
+  maximumLoan: "300,000",
+  minimumDownPayment: "20,000",
+  loanTerm: "15"
 });
 
 const defaultBanks = [bank1];
@@ -53,7 +54,6 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function(req, res) {
-
   const newBank = new Bank ({
     name: req.body.bankName,
     interestRate: req.body.interestRate,
@@ -147,12 +147,12 @@ app.post('/calculator', (req, res)=> {
       let bankId = new Object("");
       let mortgage = 0;
       if(selectedBank != null) {
-        maxLoan = selectedBank.maximumLoan;
-        minimumDownPayment = req.body.downPayment;
-        loanTerm = selectedBank.loanTerm;
-        interestRate = selectedBank.interestRate;
+        maxLoan = parseFloat(selectedBank.maximumLoan.replace(/,/g, ''));
+        minimumDownPayment = parseFloat(req.body.downPayment.replace(/,/g, ''));
+        loanTerm = parseFloat(selectedBank.loanTerm.replace(/,/g, ''));
+        interestRate = parseFloat(selectedBank.interestRate.replace(/,/g, ''));
         bankId = selectedBank._id;
-        initialLoan = req.body.initialLoan;
+        initialLoan = parseFloat(req.body.initialLoan.replace(/,/g, ''));
 
         var topFormula = (initialLoan-minimumDownPayment)*(interestRate*0.01/12)*Math.pow((1 + (interestRate*0.01/12)), loanTerm*12);
         var bottomFormula = Math.pow((1 + (interestRate*0.01/12)), loanTerm*12) - 1;
@@ -160,9 +160,9 @@ app.post('/calculator', (req, res)=> {
       }
 
       res.render('calculator', {
+        maxLoan: maxLoan,
         banks: foundBanks,
         bankId: bankId,
-        maxLoan: maxLoan,
         minimumDownPayment: minimumDownPayment,
         mortgage: mortgage
       });

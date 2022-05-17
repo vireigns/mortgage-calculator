@@ -15,14 +15,40 @@
     </select>
 </div>
 <div class="setting">
-  <span>Initial loan: <input type="number" name="initialLoan" max= "<%= maxLoan%>" id="initialLoan" placeholder="$<%= maxLoan.toLocaleString("en-US") %>" required="required" ></span>
+  <span>Initial loan: <input class="add-comma" type="text" name="initialLoan" max= "<%= maxLoan%>" id="initialLoan" placeholder="$<%= maxLoan.toLocaleString("en-US") %>" required="required" ></span>
 </div>
 <div class="setting">
-  <span> Down payment: <input type="number" name="downPayment" min= "<%= minimumDownPayment %>" id="downPayment" placeholder="$<%= minimumDownPayment.toLocaleString("en-US") %>" required="required"></span>
+  <span> Down payment: <input class="add-comma" type="text" name="downPayment" min= "<%= minimumDownPayment %>" id="downPayment" placeholder="$<%= minimumDownPayment.toLocaleString("en-US") %>" required="required"></span>
 </div>
   <button type="submit" value="" class="calculate btn btn-dark btn-sm" name="calculateButton">Calculate</button>
   <p class="mortgage fw-bold">Total monthly payment: $<%=mortgage%></p>
 </form>
 </div>
+
+<script>
+  function updateTextView(_obj){
+    var num = getNumber(_obj.val());
+    if(num==0){
+      _obj.val('');
+    }else{
+      _obj.val(num.toLocaleString());
+    }
+  }
+  function getNumber(_str){
+    var arr = _str.split('');
+    var out = new Array();
+    for(var cnt=0;cnt<arr.length;cnt++){
+      if(isNaN(arr[cnt])==false){
+        out.push(arr[cnt]);
+      }
+    }
+    return Number(out.join(''));
+  }
+  $(document).ready(function(){
+    $('.add-comma').on('keyup',function(){
+      updateTextView($(this));
+    });
+  });
+</script>
 
 <%- include("partials/footer.ejs") %>

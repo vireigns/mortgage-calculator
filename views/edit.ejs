@@ -6,20 +6,45 @@
 <form class="" action="/edit/<%= _id %>" method="post">
 <div class="edit" name="editBox">
   <div class="setting">
-    <span>Interest rate: <input type="number" name="newinterestRate" required='required' value=<%= interestRate %>> % </span>
+    <span>Interest rate: <input class="add-comma" type="text" name="newinterestRate" required='required' value=<%= interestRate %>> % </span>
 </div>
   <div class="setting">
-    <span> Maximum loan: $<input type="number" name="newmaximumLoan" required='required' value =<%= maximumLoan %>></span>
+    <span> Maximum loan: $<input class="add-comma" type="text" name="newmaximumLoan" required='required' value =<%= maximumLoan %>></span>
   </div>
   <div class="setting">
-    <span>Minimum down payment: $<input type="number" name="newminimumDownPayment" required='required' value =<%= minimumDownPayment %>></span>
+    <span>Minimum down payment: $<input class="add-comma" type="text" name="newminimumDownPayment" required='required' value =<%= minimumDownPayment %>></span>
   </div>
   <div class="setting">
-    <span>Loan Term: <input type="number" name="newloanTerm" required='required' value =<%= loanTerm %>> years</span>
+    <span>Loan Term: <input class="add-comma" type="text" name="newloanTerm" required='required' value =<%= loanTerm %>> years</span>
   </div>
   <button type="submit" class=" save btn btn-dark btn-sm" name="button">Save</button>
 </div>
 </form>
-<script src="app.js"> </script>
+
+<script>
+  function updateTextView(_obj){
+    var num = getNumber(_obj.val());
+    if(num==0){
+      _obj.val('');
+    }else{
+      _obj.val(num.toLocaleString());
+    }
+  }
+  function getNumber(_str){
+    var arr = _str.split('');
+    var out = new Array();
+    for(var cnt=0;cnt<arr.length;cnt++){
+      if(isNaN(arr[cnt])==false){
+        out.push(arr[cnt]);
+      }
+    }
+    return Number(out.join(''));
+  }
+  $(document).ready(function(){
+    $('.add-comma').on('keyup',function(){
+      updateTextView($(this));
+    });
+  });
+</script>
 
 <%- include("partials/footer.ejs") %>
